@@ -1,0 +1,2 @@
+rootProject.name = "Scrummy"
+include ':app'
