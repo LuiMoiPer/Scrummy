@@ -12,17 +12,19 @@ import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.ProjectModel;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
+    private ListItemListener listItemListener;
     private ProjectModel[] projectModels;
 
-    public ProjectAdapter(ProjectModel[] projectModels) {
+    public ProjectAdapter(ProjectModel[] projectModels, ListItemListener listItemListener) {
         this.projectModels = projectModels;
+        this.listItemListener = listItemListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listItemListener);
     }
 
     @Override
@@ -41,10 +43,19 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         private final TextView title;
         private final TextView description;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, ListItemListener listItemListener) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listItemListener != null && position != RecyclerView.NO_POSITION) {
+                        listItemListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public TextView getTitle() {

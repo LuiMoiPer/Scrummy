@@ -4,19 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import luimoiper.scrummy.models.ProjectModel;
+import luimoiper.scrummy.ui.ListItemListener;
 import luimoiper.scrummy.ui.ProjectAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListItemListener {
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
-        RecyclerView recyclerView = findViewById(R.id.list);
-        ProjectAdapter projectAdapter = new ProjectAdapter(generateProjects(30));
+        recyclerView = findViewById(R.id.list);
+        ProjectAdapter projectAdapter = new ProjectAdapter(generateProjects(30), this);
         recyclerView.setAdapter(projectAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -27,5 +31,11 @@ public class MainActivity extends AppCompatActivity {
             projectModels[i] = new ProjectModel("Title " + i, "Description " + i);
         }
         return projectModels;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this, ProjectActivity.class);
+        startActivity(intent);
     }
 }
