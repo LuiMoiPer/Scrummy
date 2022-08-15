@@ -1,6 +1,9 @@
 package luimoiper.scrummy.models;
 
-public class ProjectModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ProjectModel implements Parcelable {
     private String title;
     private String description;
 
@@ -23,5 +26,33 @@ public class ProjectModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    protected ProjectModel(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<ProjectModel> CREATOR = new Creator<ProjectModel>() {
+        @Override
+        public ProjectModel createFromParcel(Parcel in) {
+            return new ProjectModel(in);
+        }
+
+        @Override
+        public ProjectModel[] newArray(int size) {
+            return new ProjectModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(description);
     }
 }

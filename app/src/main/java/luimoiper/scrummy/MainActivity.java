@@ -13,6 +13,7 @@ import luimoiper.scrummy.ui.ProjectAdapter;
 
 public class MainActivity extends AppCompatActivity implements ListItemListener {
     private RecyclerView recyclerView;
+    private ProjectAdapter projectAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         setContentView(R.layout.main_activity);
 
         recyclerView = findViewById(R.id.list);
-        ProjectAdapter projectAdapter = new ProjectAdapter(generateProjects(30), this);
+        projectAdapter = new ProjectAdapter(generateProjects(30), this);
         recyclerView.setAdapter(projectAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ProjectActivity.class);
+        intent.putExtra("ProjectModel", projectAdapter.getItem(position));
         startActivity(intent);
     }
 }

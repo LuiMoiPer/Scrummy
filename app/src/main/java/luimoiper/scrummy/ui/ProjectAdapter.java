@@ -20,6 +20,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         this.listItemListener = listItemListener;
     }
 
+    public ProjectModel getItem(int position) {
+        if (position >= 0 && position < projectModels.length) {
+            return projectModels[position];
+        }
+        return null;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
