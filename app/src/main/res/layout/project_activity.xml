@@ -20,11 +20,25 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Description" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <Button
+        android:id="@+id/backlogButton"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:text="Backlog"
+        app:layout_constraintBottom_toTopOf="@id/sprintsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <Button
+        android:id="@+id/sprintsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sprints"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backlogButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
