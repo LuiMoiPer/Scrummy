@@ -23,30 +23,30 @@
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="Description" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/description">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/backlogTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backlog Items" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/sprintsTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sprints" />
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/backlogButton"
-        app:layout_constraintTop_toBottomOf="@id/description" />
-
-    <Button
-        android:id="@+id/backlogButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Backlog"
-        app:layout_constraintBottom_toTopOf="@id/sprintsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragmentContainer" />
-
-    <Button
-        android:id="@+id/sprintsButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="sprints"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backlogButton" />
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        tools:background="@color/alpha_shadow_10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

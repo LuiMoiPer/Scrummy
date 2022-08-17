@@ -3,6 +3,7 @@ package luimoiper.scrummy.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.ProjectModel;
@@ -25,9 +29,9 @@ public class ProjectActivity extends AppCompatActivity {
     private TextView title;
     private TextView description;
 
+    private TabLayout.TabView backlogTab;
+    private TabLayout.TabView sprintsTab;
     private FragmentContainerView fragmentContainer;
-    private Button backlogButton;
-    private Button sprintsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,6 @@ public class ProjectActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         fragmentContainer = findViewById(R.id.fragmentContainer);
-        backlogButton = findViewById(R.id.backlogButton);
-        sprintsButton = findViewById(R.id.sprintsButton);
 
         Intent intent = getIntent();
         projectModel = intent.getParcelableExtra("ProjectModel");
@@ -63,16 +65,18 @@ public class ProjectActivity extends AppCompatActivity {
         }
 
         replaceFragment(backlogItemsFragment);
-        setButtonActions();
+        setTabActions();
     }
 
-    private void setButtonActions() {
-        Context context = this;
-        backlogButton.setOnClickListener(view -> {
+    private void setTabActions() {
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
+        backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
+        sprintsTab = (TabLayout.TabView) viewGroup.getChildAt(1);
+        backlogTab.setOnClickListener(view -> {
             replaceFragment(backlogItemsFragment);
         });
-
-        sprintsButton.setOnClickListener(view -> {
+        sprintsTab.setOnClickListener(view -> {
             replaceFragment(sprintsFragment);
         });
     }
