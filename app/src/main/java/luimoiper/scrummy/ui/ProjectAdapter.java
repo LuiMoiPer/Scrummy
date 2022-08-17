@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.ProjectModel;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
+public class ProjectAdapter
+        extends RecyclerView.Adapter<ProjectAdapter.ViewHolder>
+        implements ListAdapter<ProjectModel>
+{
     private ProjectModel[] projectModels;
     private ListItemListener listItemListener;
 
@@ -20,6 +23,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
         this.listItemListener = listItemListener;
     }
 
+    @Override
     public ProjectModel getItem(int position) {
         if (position >= 0 && position < projectModels.length) {
             return projectModels[position];

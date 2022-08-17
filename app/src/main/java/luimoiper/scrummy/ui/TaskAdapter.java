@@ -11,13 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.TaskModel;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+public class TaskAdapter
+        extends RecyclerView.Adapter<TaskAdapter.ViewHolder>
+        implements ListAdapter<TaskModel>
+{
     private TaskModel[] taskModels;
     private ListItemListener listItemListener;
 
     public TaskAdapter(TaskModel[] taskModels, ListItemListener listItemListener) {
         this.taskModels = taskModels;
         this.listItemListener = listItemListener;
+    }
+
+    @Override
+    public TaskModel getItem(int position) {
+        if (position >= 0 && position < taskModels.length) {
+            return taskModels[position];
+        }
+        return null;
     }
 
     @NonNull

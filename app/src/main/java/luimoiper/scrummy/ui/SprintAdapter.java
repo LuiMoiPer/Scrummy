@@ -11,13 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.SprintModel;
 
-public class SprintAdapter extends RecyclerView.Adapter<SprintAdapter.ViewHolder> {
+public class SprintAdapter
+        extends RecyclerView.Adapter<SprintAdapter.ViewHolder>
+        implements ListAdapter<SprintModel>
+{
     private SprintModel[] sprintModels;
     private ListItemListener listItemListener;
 
     public SprintAdapter(SprintModel[] sprintModels, ListItemListener listItemListener) {
         this.sprintModels = sprintModels;
         this.listItemListener = listItemListener;
+    }
+
+    @Override
+    public SprintModel getItem(int position) {
+        if (position >= 0 && position < sprintModels.length) {
+            return sprintModels[position];
+        }
+        return null;
     }
 
     @NonNull
