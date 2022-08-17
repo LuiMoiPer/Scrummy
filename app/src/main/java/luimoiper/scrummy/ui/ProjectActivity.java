@@ -1,10 +1,8 @@
 package luimoiper.scrummy.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import luimoiper.scrummy.R;
@@ -29,8 +26,6 @@ public class ProjectActivity extends AppCompatActivity {
     private TextView title;
     private TextView description;
 
-    private TabLayout.TabView backlogTab;
-    private TabLayout.TabView sprintsTab;
     private FragmentContainerView fragmentContainer;
 
     @Override
@@ -71,11 +66,13 @@ public class ProjectActivity extends AppCompatActivity {
     private void setTabActions() {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
-        backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
-        sprintsTab = (TabLayout.TabView) viewGroup.getChildAt(1);
+        
+        TabLayout.TabView backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
         backlogTab.setOnClickListener(view -> {
             replaceFragment(backlogItemsFragment);
         });
+
+        TabLayout.TabView sprintsTab = (TabLayout.TabView) viewGroup.getChildAt(1);
         sprintsTab.setOnClickListener(view -> {
             replaceFragment(sprintsFragment);
         });
