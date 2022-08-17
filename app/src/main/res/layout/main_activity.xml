@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_padding"
     tools:context=".ui.MainActivity">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/spacing_small"
         android:text="Products"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/list"
@@ -23,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#1A000000"
-        android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
