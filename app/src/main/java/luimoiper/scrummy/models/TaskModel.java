@@ -4,11 +4,13 @@ public class TaskModel {
     private String title;
     private String description;
     private int points;
+    private String status;
 
-    public TaskModel(String title, String description, int points) {
+    public TaskModel(String title, String description, int points, String status) {
         this.title = title;
         this.description = description;
         this.points = points;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -33,5 +35,13 @@ public class TaskModel {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

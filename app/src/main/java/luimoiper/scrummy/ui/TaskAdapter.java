@@ -44,6 +44,7 @@ public class TaskAdapter
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TaskModel taskModel = taskModels[position];
         holder.title.setText(taskModel.getTitle());
+        holder.status.setText(taskModel.getStatus());
         holder.description.setText(taskModel.getDescription());
         holder.points.setText(String.valueOf(taskModel.getPoints()));
     }
@@ -55,12 +56,14 @@ public class TaskAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView title;
+        final TextView status;
         final TextView description;
         final TextView points;
 
         public ViewHolder(@NonNull View itemView, ListItemListener listItemListener) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
+            status = itemView.findViewById(R.id.status);
             description = itemView.findViewById(R.id.description);
             points = itemView.findViewById(R.id.storyPoints);
             itemView.setOnClickListener(view -> {
