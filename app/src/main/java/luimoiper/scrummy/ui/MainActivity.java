@@ -1,4 +1,4 @@
-package luimoiper.scrummy;
+package luimoiper.scrummy.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.ProjectModel;
-import luimoiper.scrummy.ui.ListItemListener;
-import luimoiper.scrummy.ui.ProjectAdapter;
+import luimoiper.scrummy.utils.Generator;
 
 public class MainActivity extends AppCompatActivity implements ListItemListener {
     private RecyclerView recyclerView;
@@ -21,17 +21,9 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         setContentView(R.layout.main_activity);
 
         recyclerView = findViewById(R.id.list);
-        projectAdapter = new ProjectAdapter(generateProjects(30), this);
+        projectAdapter = new ProjectAdapter(Generator.makeProjectModelArray(30), this);
         recyclerView.setAdapter(projectAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    protected ProjectModel[] generateProjects(int count) {
-        ProjectModel[] projectModels = new ProjectModel[count];
-        for (int i = 0; i < projectModels.length; i++) {
-            projectModels[i] = new ProjectModel("Title " + i, "Description " + i);
-        }
-        return projectModels;
     }
 
     @Override
