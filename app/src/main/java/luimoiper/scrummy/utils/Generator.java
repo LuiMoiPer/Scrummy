@@ -3,6 +3,7 @@ package luimoiper.scrummy.utils;
 import java.util.Random;
 
 import luimoiper.scrummy.models.ProjectModel;
+import luimoiper.scrummy.models.TaskModel;
 
 public class Generator {
     private final static Random random = new Random();
@@ -34,11 +35,23 @@ public class Generator {
         return new ProjectModel(makeCharSequence(), makeCharSentence());
     }
 
-    public static ProjectModel[] makeProjectModelArray(int count) {
+    public static ProjectModel[] makeProjectModels(int count) {
         ProjectModel[] projectModels = new ProjectModel[count];
         for (int i = 0; i < projectModels.length; i++) {
             projectModels[i] = makeProjectModel();
         }
         return projectModels;
+    }
+
+    public static TaskModel makeTaskModel() {
+        return new TaskModel(makeCharSequence(), makeCharSentence(), random.nextInt(17));
+    }
+
+    public static TaskModel[] makeTaskModels(int count) {
+        TaskModel[] taskModels = new TaskModel[count];
+        for (int i = 0; i < taskModels.length; i++) {
+            taskModels[i] = makeTaskModel();
+        }
+        return taskModels;
     }
 }

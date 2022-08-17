@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import luimoiper.scrummy.R;
-import luimoiper.scrummy.models.ProjectModel;
 import luimoiper.scrummy.utils.Generator;
 
 public class MainActivity extends AppCompatActivity implements ListItemListener {
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         setContentView(R.layout.main_activity);
 
         recyclerView = findViewById(R.id.list);
-        projectAdapter = new ProjectAdapter(Generator.makeProjectModelArray(30), this);
+        projectAdapter = new ProjectAdapter(Generator.makeProjectModels(30), this);
         recyclerView.setAdapter(projectAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
