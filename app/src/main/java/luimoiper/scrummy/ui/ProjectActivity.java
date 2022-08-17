@@ -1,10 +1,12 @@
 package luimoiper.scrummy.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,20 +45,23 @@ public class ProjectActivity extends AppCompatActivity {
             title.setText("Project model is NULL");
             description.setText("Project model is NULL");
         }
+
+        setButtonActions();
     }
 
     private void setButtonActions() {
+        Context context = this;
         backlogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(context, "Backlog button", Toast.LENGTH_SHORT).show();
             }
         });
 
         sprintsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(context, "Sprint button", Toast.LENGTH_SHORT).show();
             }
         });
     }
