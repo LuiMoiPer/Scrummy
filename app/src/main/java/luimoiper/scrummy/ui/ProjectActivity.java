@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
@@ -35,6 +36,9 @@ public class ProjectActivity extends AppCompatActivity {
         backlogItemsFragment = new ListFragment(
                 new TaskAdapter(Generator.makeTaskModels(20), this::onBacklogItemClick)
         );
+        sprintsFragment = new ListFragment(
+                new SprintAdapter(Generator.makeSprintModels(5), this::onSprintItemClick)
+        );
 
         setContentView(R.layout.project_activity);
         title = findViewById(R.id.title);
@@ -50,11 +54,6 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void setViewContent() {
-        fragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(fragmentContainer.getId(), backlogItemsFragment)
-                .commit();
-
         if (projectModel != null) {
             title.setText(projectModel.getTitle());
             description.setText(projectModel.getDescription());
@@ -63,18 +62,26 @@ public class ProjectActivity extends AppCompatActivity {
             description.setText("Project model is NULL");
         }
 
+        replaceFragment(backlogItemsFragment);
         setButtonActions();
     }
 
     private void setButtonActions() {
         Context context = this;
         backlogButton.setOnClickListener(view -> {
-            Toast.makeText(context, "Backlog button", Toast.LENGTH_SHORT).show();
+            replaceFragment(backlogItemsFragment);
         });
 
         sprintsButton.setOnClickListener(view -> {
-            Toast.makeText(context, "Sprint button", Toast.LENGTH_SHORT).show();
+            replaceFragment(sprintsFragment);
         });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        fragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(fragmentContainer.getId(), fragment)
+                .commit();
     }
 
     private void onBacklogItemClick(int position) {
@@ -82,6 +89,6 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void onSprintItemClick(int position) {
-        // do stuff
+        Toast.makeText(this, "Sprint at position " + position, Toast.LENGTH_SHORT).show();
     }
 }

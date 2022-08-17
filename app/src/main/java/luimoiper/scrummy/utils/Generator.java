@@ -72,6 +72,14 @@ public class Generator {
                 makeDate(),
                 random.nextInt(90) + 10
         );
-        return null;
+        return sprintModel;
+    }
+
+    public static SprintModel[] makeSprintModels(int count) {
+        SprintModel[] sprintModels = new SprintModel[count];
+        for (int i = 0; i < sprintModels.length; i++) {
+            sprintModels[i] = makeSprintModel();
+        }
+        return sprintModels;
     }
 }
