@@ -18,6 +18,8 @@ import luimoiper.scrummy.models.ProjectModel;
 import luimoiper.scrummy.utils.Generator;
 
 public class ProjectActivity extends AppCompatActivity {
+    private static final String ACTIVITY_TITLE = "Project Details";
+
     private ProjectModel projectModel;
     private FragmentManager fragmentManager;
     private ListFragment backlogItemsFragment;
@@ -33,6 +35,7 @@ public class ProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(ACTIVITY_TITLE);
         setAdapters();
         fragmentManager = getSupportFragmentManager();
         backlogItemsFragment = new ListFragment(backlogItemAdapter);

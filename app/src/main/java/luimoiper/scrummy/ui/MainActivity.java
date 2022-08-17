@@ -11,12 +11,15 @@ import luimoiper.scrummy.R;
 import luimoiper.scrummy.utils.Generator;
 
 public class MainActivity extends AppCompatActivity implements ListItemListener {
+    private static final String ACTIVITY_TITLE = "Scrummy";
+
     private RecyclerView recyclerView;
     private ProjectAdapter projectAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(ACTIVITY_TITLE);
         setContentView(R.layout.main_activity);
 
         recyclerView = findViewById(R.id.list);

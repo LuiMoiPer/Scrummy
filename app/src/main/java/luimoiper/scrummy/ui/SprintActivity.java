@@ -15,6 +15,8 @@ import luimoiper.scrummy.models.SprintModel;
 import luimoiper.scrummy.utils.Generator;
 
 public class SprintActivity extends AppCompatActivity {
+    private static final String ACTIVITY_TITLE = "Sprint Details";
+
     private SprintModel sprintModel;
     private FragmentManager fragmentManager;
 
@@ -29,6 +31,7 @@ public class SprintActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(ACTIVITY_TITLE);
         setContentView(R.layout.sprint_activity);
         fragmentManager = getSupportFragmentManager();
 
