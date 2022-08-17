@@ -1,8 +1,10 @@
 package luimoiper.scrummy.utils;
 
+import java.util.Date;
 import java.util.Random;
 
 import luimoiper.scrummy.models.ProjectModel;
+import luimoiper.scrummy.models.SprintModel;
 import luimoiper.scrummy.models.TaskModel;
 
 public class Generator {
@@ -31,6 +33,14 @@ public class Generator {
         return sentence + ".";
     }
 
+    public static Date makeDate() {
+        int year = random.nextInt(1020) + 1000;
+        int month = random.nextInt(12);
+        int day = random.nextInt(28);
+        Date date = new Date(year, month, day);
+        return date;
+    }
+
     public static ProjectModel makeProjectModel() {
         return new ProjectModel(makeCharSequence(), makeCharSentence());
     }
@@ -53,5 +63,15 @@ public class Generator {
             taskModels[i] = makeTaskModel();
         }
         return taskModels;
+    }
+
+    public static SprintModel makeSprintModel() {
+        SprintModel sprintModel = new SprintModel(
+                makeCharSequence(),
+                makeDate(),
+                makeDate(),
+                random.nextInt(90) + 10
+        );
+        return null;
     }
 }
