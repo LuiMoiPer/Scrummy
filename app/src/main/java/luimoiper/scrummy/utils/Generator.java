@@ -11,8 +11,12 @@ public class Generator {
     private final static Random random = new Random();
 
     public static String makeCharSequence() {
+        return makeCharSequence(random.nextInt(10) + 1);
+    }
+
+    public static String makeCharSequence(int maxChars) {
         String word = "";
-        for (int i = random.nextInt(10) + 1; i > 0; i--) {
+        for (int i = random.nextInt(maxChars) + 1; i > 0; i--) {
             char nextChar = (char) (random.nextInt(26) + 65);
             if (random.nextBoolean()) {
                 nextChar += 32;
@@ -54,7 +58,7 @@ public class Generator {
     }
 
     public static TaskModel makeTaskModel() {
-        return new TaskModel(makeCharSequence(), makeCharSentence(), random.nextInt(17));
+        return new TaskModel(makeCharSequence(), makeCharSentence(), random.nextInt(17), makeCharSequence());
     }
 
     public static TaskModel[] makeTaskModels(int count) {
