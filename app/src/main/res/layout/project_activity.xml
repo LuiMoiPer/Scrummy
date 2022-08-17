@@ -23,6 +23,13 @@
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="Description" />
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/backlogButton"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
     <Button
         android:id="@+id/backlogButton"
         android:layout_width="match_parent"
@@ -31,13 +38,14 @@
         app:layout_constraintBottom_toTopOf="@id/sprintsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
 
     <Button
         android:id="@+id/sprintsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="sprints"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backlogButton" />
