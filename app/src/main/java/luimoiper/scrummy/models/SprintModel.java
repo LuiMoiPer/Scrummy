@@ -1,8 +1,11 @@
 package luimoiper.scrummy.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class SprintModel {
+public class SprintModel implements Parcelable {
     private String title;
     private Date startDate;
     private Date endDate;
@@ -13,6 +16,13 @@ public class SprintModel {
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalPoints = totalPoints;
+    }
+
+    protected SprintModel(Parcel source) {
+        title = source.readString();
+        startDate = new Date(source.readLong());
+        endDate = new Date(source.readLong());
+        totalPoints = source.readInt();
     }
 
     public String getTitle() {
@@ -45,5 +55,29 @@ public class SprintModel {
 
     public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
+    }
+
+    public static final Creator<SprintModel> CREATOR = new Creator<SprintModel>() {
+        @Override
+        public SprintModel createFromParcel(Parcel source) {
+            return new SprintModel(source);
+        }
+
+        @Override
+        public SprintModel[] newArray(int size) {
+            return new SprintModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeLong(startDate.getTime());
+        parcel.writeLong(endDate.getTime());
+        parcel.writeInt(totalPoints);
     }
 }

@@ -27,17 +27,16 @@ public class ProjectActivity extends AppCompatActivity {
     private TextView description;
 
     private FragmentContainerView fragmentContainer;
+    private TaskAdapter backlogItemAdapter;
+    private SprintAdapter sprintAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAdapters();
         fragmentManager = getSupportFragmentManager();
-        backlogItemsFragment = new ListFragment(
-                new TaskAdapter(Generator.makeTaskModels(20), this::onBacklogItemClick)
-        );
-        sprintsFragment = new ListFragment(
-                new SprintAdapter(Generator.makeSprintModels(5), this::onSprintItemClick)
-        );
+        backlogItemsFragment = new ListFragment(backlogItemAdapter);
+        sprintsFragment = new ListFragment(sprintAdapter);
 
         setContentView(R.layout.project_activity);
         title = findViewById(R.id.title);
@@ -48,6 +47,17 @@ public class ProjectActivity extends AppCompatActivity {
         projectModel = intent.getParcelableExtra("ProjectModel");
 
         setViewContent();
+    }
+
+    private void setAdapters() {
+        backlogItemAdapter = new TaskAdapter(
+                Generator.makeTaskModels(20),
+                this::onBacklogItemClick
+        );
+        sprintAdapter = new SprintAdapter(
+                Generator.makeSprintModels(6),
+                this::onSprintClick
+        );
     }
 
     private void setViewContent() {
@@ -66,7 +76,7 @@ public class ProjectActivity extends AppCompatActivity {
     private void setTabActions() {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
-        
+
         TabLayout.TabView backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
         backlogTab.setOnClickListener(view -> {
             replaceFragment(backlogItemsFragment);
@@ -89,7 +99,9 @@ public class ProjectActivity extends AppCompatActivity {
         Toast.makeText(this, "Backlog item at position " + position, Toast.LENGTH_SHORT).show();
     }
 
-    private void onSprintItemClick(int position) {
-        Toast.makeText(this, "Sprint at position " + position, Toast.LENGTH_SHORT).show();
+    private void onSprintClick(int position) {
+        Intent intent = new Intent(this, SprintActivity.class);
+        intent.putExtra("SprintModel", sprintAdapter.getItem(position));
+        startActivity(intent);
     }
 }

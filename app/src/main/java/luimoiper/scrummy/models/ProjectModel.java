@@ -12,6 +12,11 @@ public class ProjectModel implements Parcelable {
         this.description = description;
     }
 
+    protected ProjectModel(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+    }
+
     public String getTitle() {
         return title;
     }
@@ -26,11 +31,6 @@ public class ProjectModel implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    protected ProjectModel(Parcel in) {
-        title = in.readString();
-        description = in.readString();
     }
 
     public static final Creator<ProjectModel> CREATOR = new Creator<ProjectModel>() {
