@@ -51,18 +51,12 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void setButtonActions() {
         Context context = this;
-        backlogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Backlog button", Toast.LENGTH_SHORT).show();
-            }
+        backlogButton.setOnClickListener(view -> {
+            Toast.makeText(context, "Backlog button", Toast.LENGTH_SHORT).show();
         });
 
-        sprintsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Sprint button", Toast.LENGTH_SHORT).show();
-            }
+        sprintsButton.setOnClickListener(view -> {
+            Toast.makeText(context, "Sprint button", Toast.LENGTH_SHORT).show();
         });
     }
 }
