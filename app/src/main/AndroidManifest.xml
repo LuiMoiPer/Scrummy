@@ -18,5 +18,6 @@
         </activity>
         <activity android:name=".ui.ProjectActivity"/>
         <activity android:name=".ui.SprintActivity"/>
+        <activity android:name=".ui.TaskActivity"/>
     </application>
 </manifest>
