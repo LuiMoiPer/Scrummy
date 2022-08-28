@@ -99,7 +99,9 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void onBacklogItemClick(int position) {
-        Toast.makeText(this, "Backlog item at position " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TaskActivity.class);
+        intent.putExtra("TaskModel", backlogItemAdapter.getItem(position));
+        startActivity(intent);
     }
 
     private void onSprintClick(int position) {

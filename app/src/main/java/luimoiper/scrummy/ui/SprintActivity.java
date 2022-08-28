@@ -76,6 +76,8 @@ public class SprintActivity extends AppCompatActivity {
     }
 
     private void onSprintItemClick(int position) {
-        Toast.makeText(this, "Sprint item at position " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TaskActivity.class);
+        intent.putExtra("TaskModel", taskAdapter.getItem(position));
+        startActivity(intent);
     }
 }
