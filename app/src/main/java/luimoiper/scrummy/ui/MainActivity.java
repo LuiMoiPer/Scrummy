@@ -8,13 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import luimoiper.scrummy.R;
-import luimoiper.scrummy.utils.Generator;
+import luimoiper.scrummy.db.Access;
+import luimoiper.scrummy.db.ProjectDao;
 
 public class MainActivity extends AppCompatActivity implements ListItemListener {
     private static final String ACTIVITY_TITLE = "Scrummy";
 
     private RecyclerView recyclerView;
-    private ProjectAdapter projectAdapter;
+    private ProjectDao projectDao;
+    private ProjectEntityAdapter projectAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,10 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         setTitle(ACTIVITY_TITLE);
         setContentView(R.layout.main_activity);
 
+        projectDao = Access.getScrumDatabase(getApplicationContext()).projectDao();
+
         recyclerView = findViewById(R.id.list);
-        projectAdapter = new ProjectAdapter(Generator.makeProjectModels(30), this);
+        projectAdapter = new ProjectEntityAdapter(projectDao.getAll(), this);
         recyclerView.setAdapter(projectAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ProjectActivity.class);
-        intent.putExtra("ProjectModel", projectAdapter.getItem(position));
+        // intent.putExtra("ProjectModel", projectAdapter.getItem(position));
         startActivity(intent);
     }
 }
