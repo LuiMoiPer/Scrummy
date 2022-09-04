@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Project {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int uid;
 
     public String name;

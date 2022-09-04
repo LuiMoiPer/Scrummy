@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.db.Access;
 import luimoiper.scrummy.db.ProjectDao;
@@ -14,9 +16,11 @@ import luimoiper.scrummy.db.ProjectDao;
 public class MainActivity extends AppCompatActivity implements ListItemListener {
     private static final String ACTIVITY_TITLE = "Scrummy";
 
-    private RecyclerView recyclerView;
     private ProjectDao projectDao;
     private ProjectEntityAdapter projectAdapter;
+
+    private FloatingActionButton fab;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +31,9 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         projectDao = Access.getScrumDatabase(getApplicationContext()).projectDao();
 
         recyclerView = findViewById(R.id.list);
-        projectAdapter = new ProjectEntityAdapter(projectDao.getAll(), this);
-        recyclerView.setAdapter(projectAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        fab = findViewById(R.id.fab);
+
+        setupViews();
     }
 
     @Override
@@ -37,5 +41,20 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
         Intent intent = new Intent(this, ProjectActivity.class);
         // intent.putExtra("ProjectModel", projectAdapter.getItem(position));
         startActivity(intent);
+    }
+
+    private void resetRecyclerView() {
+        projectAdapter = new ProjectEntityAdapter(projectDao.getAll(), this);
+        recyclerView.setAdapter(projectAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void setupViews() {
+        resetRecyclerView();
+        fab.setOnClickListener(v -> onFabClick());
+    }
+
+    private void onFabClick() {
+        startActivity(new Intent(this, AddProjectActivity.class));
     }
 }
