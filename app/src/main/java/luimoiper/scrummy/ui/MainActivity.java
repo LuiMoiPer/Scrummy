@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        resetRecyclerView();
+    }
+
+    @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ProjectActivity.class);
         // intent.putExtra("ProjectModel", projectAdapter.getItem(position));
