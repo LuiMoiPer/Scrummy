@@ -16,18 +16,18 @@ import luimoiper.scrummy.db.Project;
 public class ProjectEntityAdapter extends RecyclerView.Adapter<ProjectEntityAdapter.ViewHolder>
         implements ListAdapter<Project> {
 
-    private Project[] projectModels;
+    private List<Project> projectModels;
     private ListItemListener listItemListener;
 
     public ProjectEntityAdapter(List<Project> projectModels, ListItemListener listItemListener) {
-        this.projectModels = projectModels.toArray(new Project[0]);
+        this.projectModels = projectModels;
         this.listItemListener = listItemListener;
     }
 
     @Override
     public Project getItem(int position) {
-        if (position >= 0 && position < projectModels.length) {
-            return projectModels[position];
+        if (position >= 0 && position < projectModels.size()) {
+            return projectModels.get(position);
         }
         return null;
     }
@@ -43,14 +43,14 @@ public class ProjectEntityAdapter extends RecyclerView.Adapter<ProjectEntityAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProjectEntityAdapter.ViewHolder holder, int position) {
-        Project projectEntity = projectModels[position];
+        Project projectEntity = projectModels.get(position);
         holder.title.setText(projectEntity.name);
         holder.description.setText(projectEntity.description);
     }
 
     @Override
     public int getItemCount() {
-        return projectModels.length;
+        return projectModels.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
