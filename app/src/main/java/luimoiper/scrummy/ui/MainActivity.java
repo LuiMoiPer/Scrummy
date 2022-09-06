@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ListItemListener 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ProjectActivity.class);
-        // intent.putExtra("ProjectModel", projectAdapter.getItem(position));
+        intent.putExtra("ProjectUid", projects.get(position).uid);
         startActivity(intent);
     }
 

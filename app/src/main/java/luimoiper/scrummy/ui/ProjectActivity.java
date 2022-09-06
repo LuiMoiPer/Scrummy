@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,13 +13,19 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.tabs.TabLayout;
 
 import luimoiper.scrummy.R;
-import luimoiper.scrummy.models.ProjectModel;
+import luimoiper.scrummy.db.Access;
+import luimoiper.scrummy.db.Project;
+import luimoiper.scrummy.db.ProjectDao;
+import luimoiper.scrummy.db.SprintDao;
 import luimoiper.scrummy.utils.Generator;
 
 public class ProjectActivity extends AppCompatActivity {
     private static final String ACTIVITY_TITLE = "Project Details";
 
-    private ProjectModel projectModel;
+    private ProjectDao projectDao;
+    private SprintDao sprintDao;
+
+    private Project project;
     private FragmentManager fragmentManager;
     private ListFragment backlogItemsFragment;
     private ListFragment sprintsFragment;
@@ -46,8 +51,12 @@ public class ProjectActivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         fragmentContainer = findViewById(R.id.fragmentContainer);
 
+        projectDao = Access.getScrumDatabase(this).projectDao();
+        sprintDao = Access.getScrumDatabase(this).sprintDao();
+
         Intent intent = getIntent();
-        projectModel = intent.getParcelableExtra("ProjectModel");
+        int projectUid = intent.getIntExtra("ProjectUid", -1);
+        project = projectDao.get(projectUid);
 
         setViewContent();
     }
@@ -64,9 +73,9 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void setViewContent() {
-        if (projectModel != null) {
-            title.setText(projectModel.getTitle());
-            description.setText(projectModel.getDescription());
+        if (project != null) {
+            title.setText(project.name);
+            description.setText(project.description);
         } else {
             title.setText("Project model is NULL");
             description.setText("Project model is NULL");
