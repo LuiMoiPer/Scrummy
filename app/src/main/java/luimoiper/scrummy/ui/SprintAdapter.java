@@ -8,25 +8,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+import java.util.Random;
+
 import luimoiper.scrummy.R;
+import luimoiper.scrummy.db.Sprint;
 import luimoiper.scrummy.models.SprintModel;
+import luimoiper.scrummy.utils.Generator;
 
 public class SprintAdapter
         extends RecyclerView.Adapter<SprintAdapter.ViewHolder>
-        implements ListAdapter<SprintModel>
+        implements ListAdapter<Sprint>
 {
-    private SprintModel[] sprintModels;
+    private List<Sprint> sprintModels;
     private ListItemListener listItemListener;
 
-    public SprintAdapter(SprintModel[] sprintModels, ListItemListener listItemListener) {
+    public SprintAdapter(List<Sprint> sprintModels, ListItemListener listItemListener) {
         this.sprintModels = sprintModels;
         this.listItemListener = listItemListener;
     }
 
     @Override
-    public SprintModel getItem(int position) {
-        if (position >= 0 && position < sprintModels.length) {
-            return sprintModels[position];
+    public Sprint getItem(int position) {
+        if (position >= 0 && position < sprintModels.size()) {
+            return sprintModels.get(position);
         }
         return null;
     }
@@ -41,16 +46,16 @@ public class SprintAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SprintModel sprintModel = sprintModels[position];
-        holder.title.setText(sprintModel.getTitle());
-        holder.startDate.setText(sprintModel.getStartDate().toString());
-        holder.endDate.setText(sprintModel.getEndDate().toString());
-        holder.totalPoints.setText(String.valueOf(sprintModel.getTotalPoints()));
+        Sprint sprint = sprintModels.get(position);
+        holder.title.setText(sprint.name);
+        holder.startDate.setText(String.valueOf(sprint.startDate));
+        holder.endDate.setText(String.valueOf(sprint.endDate));
+        holder.totalPoints.setText(String.valueOf(Generator.random.nextInt()));
     }
 
     @Override
     public int getItemCount() {
-        return sprintModels.length;
+        return sprintModels.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

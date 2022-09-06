@@ -40,19 +40,15 @@ public class ProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(ACTIVITY_TITLE);
-        setAdapters();
-        fragmentManager = getSupportFragmentManager();
-        backlogItemsFragment = new ListFragment(backlogItemAdapter);
-        sprintsFragment = new ListFragment(sprintAdapter);
 
+        projectDao = Access.getScrumDatabase(this).projectDao();
+        sprintDao = Access.getScrumDatabase(this).sprintDao();
+
+        setTitle(ACTIVITY_TITLE);
         setContentView(R.layout.project_activity);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         fragmentContainer = findViewById(R.id.fragmentContainer);
-
-        projectDao = Access.getScrumDatabase(this).projectDao();
-        sprintDao = Access.getScrumDatabase(this).sprintDao();
 
         Intent intent = getIntent();
         int projectUid = intent.getIntExtra("ProjectUid", -1);
@@ -67,12 +63,18 @@ public class ProjectActivity extends AppCompatActivity {
                 this::onBacklogItemClick
         );
         sprintAdapter = new SprintAdapter(
-                Generator.makeSprintModels(6),
+                sprintDao.getProjectSprints(project.uid),
                 this::onSprintClick
         );
     }
 
     private void setViewContent() {
+        setAdapters();
+
+        fragmentManager = getSupportFragmentManager();
+        backlogItemsFragment = new ListFragment(backlogItemAdapter);
+        sprintsFragment = new ListFragment(sprintAdapter);
+
         if (project != null) {
             title.setText(project.name);
             description.setText(project.description);
@@ -115,7 +117,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void onSprintClick(int position) {
         Intent intent = new Intent(this, SprintActivity.class);
-        intent.putExtra("SprintModel", sprintAdapter.getItem(position));
+        intent.putExtra("SprintUid", sprintAdapter.getItem(position).uid);
         startActivity(intent);
     }
 }

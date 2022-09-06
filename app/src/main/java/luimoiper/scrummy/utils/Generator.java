@@ -8,7 +8,7 @@ import luimoiper.scrummy.models.SprintModel;
 import luimoiper.scrummy.models.TaskModel;
 
 public class Generator {
-    private final static Random random = new Random();
+    public final static Random random = new Random();
 
     public static String makeCharSequence() {
         return makeCharSequence(random.nextInt(10) + 1);

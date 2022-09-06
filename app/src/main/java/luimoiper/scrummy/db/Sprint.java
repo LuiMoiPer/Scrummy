@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Sprint {
     @PrimaryKey
-    int uid;
+    public int uid;
 
-    long startDate;
-    long endDate;
+    public int parentProjectUid;
+    public String name;
+    public long startDate;
+    public long endDate;
 }
