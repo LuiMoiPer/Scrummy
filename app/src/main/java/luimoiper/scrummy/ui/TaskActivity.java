@@ -70,7 +70,7 @@ public class TaskActivity extends AppCompatActivity {
                 Generator.makeTaskModels(5),
                 this::onSubtaskItemClick
         );
-        ListFragment subtaskItemsFragment = new ListFragment(taskAdapter);
+        ListFragment subtaskItemsFragment = new ListFragment(taskAdapter, null);
 
         fragmentManager.beginTransaction()
                 .setReorderingAllowed(true)

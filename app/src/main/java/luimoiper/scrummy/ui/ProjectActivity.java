@@ -2,8 +2,10 @@ package luimoiper.scrummy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -72,8 +74,16 @@ public class ProjectActivity extends AppCompatActivity {
         setAdapters();
 
         fragmentManager = getSupportFragmentManager();
-        backlogItemsFragment = new ListFragment(backlogItemAdapter);
-        sprintsFragment = new ListFragment(sprintAdapter);
+        backlogItemsFragment = new ListFragment(
+                backlogItemAdapter,
+                v -> Toast.makeText(this, "Backlog item fab pressed", Toast.LENGTH_SHORT)
+                        .show()
+        );
+        sprintsFragment = new ListFragment(
+                sprintAdapter,
+                v -> Toast.makeText(this, "Sprint item fab pressed", Toast.LENGTH_SHORT)
+                        .show()
+        );
 
         if (project != null) {
             title.setText(project.name);

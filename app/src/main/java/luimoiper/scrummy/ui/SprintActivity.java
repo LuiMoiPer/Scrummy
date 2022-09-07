@@ -67,7 +67,7 @@ public class SprintActivity extends AppCompatActivity {
         taskAdapter = new TaskAdapter(
                 Generator.makeTaskModels(20), this::onSprintItemClick
         );
-        ListFragment sprintItemsFragment = new ListFragment(taskAdapter);
+        ListFragment sprintItemsFragment = new ListFragment(taskAdapter, null);
 
         fragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
