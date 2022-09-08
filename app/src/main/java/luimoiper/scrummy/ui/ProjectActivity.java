@@ -17,6 +17,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.db.Access;
@@ -108,6 +109,8 @@ public class ProjectActivity extends FragmentActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
 
+        new TabLayoutMediator(tabLayout, viewPager, this::configureTabs).attach();
+
         TabLayout.TabView backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
         backlogTab.setOnClickListener(view -> {
             replaceFragment(backlogItemsFragment);
@@ -117,6 +120,18 @@ public class ProjectActivity extends FragmentActivity {
         sprintsTab.setOnClickListener(view -> {
             replaceFragment(sprintsFragment);
         });
+    }
+
+    private void configureTabs(TabLayout.Tab tab, int position) {
+        switch (position) {
+            case 0:
+                tab.setText("Backlog");
+                break;
+
+            case 1:
+                tab.setText("Sprints");
+                break;
+        }
     }
 
     private void replaceFragment(Fragment fragment) {
