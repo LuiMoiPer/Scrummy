@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.LinkedList;
+
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.TaskModel;
 import luimoiper.scrummy.utils.Generator;
@@ -67,7 +69,7 @@ public class TaskActivity extends AppCompatActivity {
 
     private void setFragment() {
         taskAdapter = new TaskAdapter(
-                Generator.makeTaskModels(5),
+                new LinkedList<>(),
                 this::onSubtaskItemClick
         );
         ListFragment subtaskItemsFragment = new ListFragment(taskAdapter, null);

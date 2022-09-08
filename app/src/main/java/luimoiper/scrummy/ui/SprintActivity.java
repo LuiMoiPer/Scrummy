@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import luimoiper.scrummy.R;
 import luimoiper.scrummy.models.SprintModel;
 import luimoiper.scrummy.utils.Generator;
@@ -65,7 +68,7 @@ public class SprintActivity extends AppCompatActivity {
 
     private void setFragment() {
         taskAdapter = new TaskAdapter(
-                Generator.makeTaskModels(20), this::onSprintItemClick
+                new LinkedList<>(), this::onSprintItemClick
         );
         ListFragment sprintItemsFragment = new ListFragment(taskAdapter, null);
 
@@ -77,7 +80,7 @@ public class SprintActivity extends AppCompatActivity {
 
     private void onSprintItemClick(int position) {
         Intent intent = new Intent(this, TaskActivity.class);
-        intent.putExtra("TaskModel", taskAdapter.getItem(position));
+        // intent.putExtra("TaskModel", taskAdapter.getItem(position));
         startActivity(intent);
     }
 }

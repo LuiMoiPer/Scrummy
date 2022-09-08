@@ -97,17 +97,14 @@ public class ProjectActivity extends FragmentActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("ProjectUid", project.uid);
             Fragment fragment;
 
             if (position == 0) {
-                fragment = new BacklogListFragment();
+                fragment = new BacklogListFragment(project.uid);
             } else {
                 fragment = new SprintListFragment();
             }
 
-            fragment.setArguments(bundle);
             return fragment;
         }
 

@@ -8,25 +8,29 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import luimoiper.scrummy.R;
+import luimoiper.scrummy.db.Task;
 import luimoiper.scrummy.models.TaskModel;
+import luimoiper.scrummy.utils.Generator;
 
 public class TaskAdapter
         extends RecyclerView.Adapter<TaskAdapter.ViewHolder>
-        implements ListAdapter<TaskModel>
+        implements ListAdapter<Task>
 {
-    private TaskModel[] taskModels;
+    private List<Task> tasks;
     private ListItemListener listItemListener;
 
-    public TaskAdapter(TaskModel[] taskModels, ListItemListener listItemListener) {
-        this.taskModels = taskModels;
+    public TaskAdapter(List<Task> tasks, ListItemListener listItemListener) {
+        this.tasks = tasks;
         this.listItemListener = listItemListener;
     }
 
     @Override
-    public TaskModel getItem(int position) {
-        if (position >= 0 && position < taskModels.length) {
-            return taskModels[position];
+    public Task getItem(int position) {
+        if (position >= 0 && position < tasks.size()) {
+            return tasks.get(position);
         }
         return null;
     }
@@ -42,16 +46,16 @@ public class TaskAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TaskModel taskModel = taskModels[position];
-        holder.title.setText(taskModel.getTitle());
-        holder.status.setText(taskModel.getStatus());
-        holder.description.setText(taskModel.getDescription());
-        holder.points.setText(String.valueOf(taskModel.getPoints()));
+        Task task = tasks.get(position);
+        holder.title.setText(task.title);
+        holder.status.setText(Generator.makeCharSequence());
+        holder.description.setText(task.description);
+        holder.points.setText(String.valueOf(task.pointValue));
     }
 
     @Override
     public int getItemCount() {
-        return taskModels.length;
+        return tasks.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
