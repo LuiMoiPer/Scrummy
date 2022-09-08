@@ -20,7 +20,9 @@ public class BacklogListFragment extends AbstractListFragment {
     }
 
     private void onFabClick(View view) {
-        Toast.makeText(getContext(), "Backlog fab pressed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), AddBacklogItemActivity.class);
+        intent.putExtra("ProjectUid", projectUid);
+        startActivity(intent);
     }
 
     private void onItemClick(int position) {
