@@ -7,10 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -21,7 +25,7 @@ import luimoiper.scrummy.db.ProjectDao;
 import luimoiper.scrummy.db.SprintDao;
 import luimoiper.scrummy.utils.Generator;
 
-public class ProjectActivity extends AppCompatActivity {
+public class ProjectActivity extends FragmentActivity {
     private static final String ACTIVITY_TITLE = "Project Details";
 
     private ProjectDao projectDao;
@@ -36,6 +40,7 @@ public class ProjectActivity extends AppCompatActivity {
     private TextView description;
 
     private FragmentContainerView fragmentContainer;
+    private ViewPager2 viewPager;
     private TaskAdapter backlogItemAdapter;
     private SprintAdapter sprintAdapter;
 
@@ -51,6 +56,8 @@ public class ProjectActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         fragmentContainer = findViewById(R.id.fragmentContainer);
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new ProjectActivityAdapter(this));
 
         Intent intent = getIntent();
         int projectUid = intent.getIntExtra("ProjectUid", -1);
@@ -129,5 +136,34 @@ public class ProjectActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SprintActivity.class);
         intent.putExtra("SprintUid", sprintAdapter.getItem(position).uid);
         startActivity(intent);
+    }
+
+    public class ProjectActivityAdapter extends FragmentStateAdapter {
+        public ProjectActivityAdapter(FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("ProjectUid", project.uid);
+            Fragment fragment;
+
+            if (position == 0) {
+                fragment = new BacklogListFragment();
+            }
+            else {
+                fragment = new SprintListFragment();
+            }
+
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+        @Override
+        public int getItemCount() {
+            return 2;
+        }
     }
 }
