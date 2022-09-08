@@ -33,17 +33,11 @@ public class ProjectActivity extends FragmentActivity {
     private SprintDao sprintDao;
 
     private Project project;
-    private FragmentManager fragmentManager;
-    private ListFragment backlogItemsFragment;
-    private ListFragment sprintsFragment;
 
     private TextView title;
     private TextView description;
 
-    private FragmentContainerView fragmentContainer;
     private ViewPager2 viewPager;
-    private TaskAdapter backlogItemAdapter;
-    private SprintAdapter sprintAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +50,6 @@ public class ProjectActivity extends FragmentActivity {
         setContentView(R.layout.project_activity);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
-        fragmentContainer = findViewById(R.id.fragmentContainer);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new ProjectActivityAdapter(this));
 
@@ -67,32 +60,7 @@ public class ProjectActivity extends FragmentActivity {
         setViewContent();
     }
 
-    private void setAdapters() {
-        backlogItemAdapter = new TaskAdapter(
-                Generator.makeTaskModels(20),
-                this::onBacklogItemClick
-        );
-        sprintAdapter = new SprintAdapter(
-                sprintDao.getProjectSprints(project.uid),
-                this::onSprintClick
-        );
-    }
-
     private void setViewContent() {
-        setAdapters();
-
-        fragmentManager = getSupportFragmentManager();
-        backlogItemsFragment = new ListFragment(
-                backlogItemAdapter,
-                v -> Toast.makeText(this, "Backlog item fab pressed", Toast.LENGTH_SHORT)
-                        .show()
-        );
-        sprintsFragment = new ListFragment(
-                sprintAdapter,
-                v -> Toast.makeText(this, "Sprint item fab pressed", Toast.LENGTH_SHORT)
-                        .show()
-        );
-
         if (project != null) {
             title.setText(project.name);
             description.setText(project.description);
@@ -101,25 +69,12 @@ public class ProjectActivity extends FragmentActivity {
             description.setText("Project model is NULL");
         }
 
-        replaceFragment(backlogItemsFragment);
         setTabActions();
     }
 
     private void setTabActions() {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
-
         new TabLayoutMediator(tabLayout, viewPager, this::configureTabs).attach();
-
-        TabLayout.TabView backlogTab = (TabLayout.TabView) viewGroup.getChildAt(0);
-        backlogTab.setOnClickListener(view -> {
-            replaceFragment(backlogItemsFragment);
-        });
-
-        TabLayout.TabView sprintsTab = (TabLayout.TabView) viewGroup.getChildAt(1);
-        sprintsTab.setOnClickListener(view -> {
-            replaceFragment(sprintsFragment);
-        });
     }
 
     private void configureTabs(TabLayout.Tab tab, int position) {
@@ -132,25 +87,6 @@ public class ProjectActivity extends FragmentActivity {
                 tab.setText("Sprints");
                 break;
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        fragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(fragmentContainer.getId(), fragment)
-                .commit();
-    }
-
-    private void onBacklogItemClick(int position) {
-        Intent intent = new Intent(this, TaskActivity.class);
-        intent.putExtra("TaskModel", backlogItemAdapter.getItem(position));
-        startActivity(intent);
-    }
-
-    private void onSprintClick(int position) {
-        Intent intent = new Intent(this, SprintActivity.class);
-        intent.putExtra("SprintUid", sprintAdapter.getItem(position).uid);
-        startActivity(intent);
     }
 
     public class ProjectActivityAdapter extends FragmentStateAdapter {
@@ -167,8 +103,7 @@ public class ProjectActivity extends FragmentActivity {
 
             if (position == 0) {
                 fragment = new BacklogListFragment();
-            }
-            else {
+            } else {
                 fragment = new SprintListFragment();
             }
 
